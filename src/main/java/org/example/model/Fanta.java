@@ -13,7 +13,7 @@ public class Fanta extends Bebida {
      * @param marca  ,Marca de la bebida.
      */
     public Fanta(int codigo, String nombre, int precio, String marca) {
-        super(codigo, nombre, Precios.FANTA.getPrecio(), marca);
+        super(codigo, nombre, Precios.FANTA.getPrecio(), marca, "icon/fanta.png");
     }
     /**
      * Describe el consumo de la bebida Fanta.

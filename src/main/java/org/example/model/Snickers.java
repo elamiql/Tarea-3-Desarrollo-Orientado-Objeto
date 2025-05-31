@@ -15,7 +15,7 @@ public class Snickers extends Dulce {
      * @param sabor  Sabor del dulce.
      */
     public Snickers(int codigo, String nombre, int precio, String sabor) {
-        super(codigo, nombre, Precios.SNICKERS.getPrecio(), sabor);
+        super(codigo, nombre, Precios.SNICKERS.getPrecio(), sabor, "icon/icon.png");
     }
 
     /**

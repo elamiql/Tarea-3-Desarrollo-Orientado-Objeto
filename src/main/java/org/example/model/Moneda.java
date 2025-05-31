@@ -18,7 +18,7 @@ public abstract class Moneda implements Comparable<Moneda> {
      * @return el valor de la moneda.
      */
     public abstract int getValor();
-
+    public abstract String getImagePath();
     /**
      * Sobrescribe el método toString.
      * Muestra numero de serie y valor .

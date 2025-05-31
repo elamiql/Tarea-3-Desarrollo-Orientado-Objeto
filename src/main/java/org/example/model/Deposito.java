@@ -1,6 +1,7 @@
 package org.example.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase genérica deposito.
@@ -30,6 +31,9 @@ public class Deposito<T> {
         }
     }
 
+    public List<T> getAllItems(){
+        return new ArrayList<>(items);
+    }
     /**
      * Obtiene un elemento del depósito.
      * @return El primer elemento del deposito o null si está vacío.
@@ -44,5 +48,24 @@ public class Deposito<T> {
 
     public boolean isEmpty(){
         return items.isEmpty();
+    }
+
+    public T peek(){
+        if (!items.isEmpty()){
+            return items.get(0);
+        }
+        return null;
+    }
+
+    public T remove(int item){
+        return items.remove(item);
+    }
+
+    public int size(){
+        return items.size();
+    }
+
+    public void clearItems(){
+        items.clear();
     }
 }

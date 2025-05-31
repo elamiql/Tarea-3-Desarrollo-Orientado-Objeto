@@ -21,4 +21,9 @@ public class Moneda500 extends Moneda {
     public int getValor() {
         return 500;
     }
+
+    public String getImagePath(){
+        return "icon/moneda.png";
+    }
+
 }

@@ -18,8 +18,8 @@ public abstract class Dulce extends Producto {
      * @param precio, Precio del producto.
      * @param sabor,  Sabor del dulce.
      */
-    public Dulce(int codigo, String nombre, int precio, String sabor) {
-        super(codigo, nombre, precio);
+    public Dulce(int codigo, String nombre, int precio, String sabor, String imagePath) {
+        super(codigo, nombre, precio, imagePath);
         this.sabor = sabor;
     }
 

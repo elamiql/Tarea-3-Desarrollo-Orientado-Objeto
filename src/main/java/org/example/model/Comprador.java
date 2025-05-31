@@ -10,7 +10,6 @@ import org.example.exceptions.PagoInsuficienteException;
  */
 public class Comprador {
 
-
     /**
      * Representa el sonido de consumir el producto.
      */
@@ -20,20 +19,21 @@ public class Comprador {
      * Cantidad de vuelto que el comprador recibe.
      */
     private int vuelto;
+
     /**
      * Constructor de la clase Comprador.
      *
      * @param m Moneda que utiliza el comprador.
-     * @param cualProducto Índice del producto que se decea.
+     * @param productoNombre Índice del producto que se decea.
      * @param exp Expendedor que se utiliza.
      * @throws NoHayProductoException Si no hay un producto disponible.
      * @throws PagoInsuficienteException Si el pago es insuficiente.
      * @throws PagoIncorrectoException Si el pago es incorrecto.
      */
-    public Comprador(Moneda m, int cualProducto, Expendedor exp)
+    public Comprador(Moneda m, String productoNombre, Expendedor exp)
             throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
 
-        exp.comprarProducto(m, cualProducto);  // Intenta comprar el producto.
+        exp.comprarProducto(m, productoNombre);  // Intenta comprar el producto.
         Producto producto = exp.getProducto();
 
         // Si se compra un producto, se asigna el sonido.
@@ -44,12 +44,12 @@ public class Comprador {
         }
 
         vuelto = 0;  // Inicializa el vuelto en 0.
-        Moneda moneda;
+        int moneda;
         moneda = exp.getVuelto();  // Obtiene el vuelto del expendedor.
 
-        // Suma todo el vuelto obtenido en monedas de 100.
-        while (moneda != null) {
-            vuelto += moneda.getValor();
+        // Suma todo el vuelto obtenido
+        while (moneda != 0) {
+            vuelto = vuelto + moneda;
             moneda = exp.getVuelto();
         }
     }

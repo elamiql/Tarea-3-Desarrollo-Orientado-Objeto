@@ -18,8 +18,8 @@ public abstract class Bebida extends Producto {
      * @param precio, Precio del producto.
      * @param marca , Marca de la bebida.
      */
-    public Bebida(int serie, String nombre, int precio, String marca) {
-        super(serie, nombre, precio);
+    public Bebida(int serie, String nombre, int precio, String marca, String imagePath) {
+        super(serie, nombre, precio, imagePath);
         this.marca = marca;
     }
 
@@ -33,7 +33,7 @@ public abstract class Bebida extends Producto {
     }
 
     /**
-     * Método abstracto que describe que se esta bebiendo y la marca de la misma.
+     * Metodo abstracto que describe que se esta bebiendo y la marca de la misma.
      * @return Una String describiendo el consumo de la bebida.
      */
     public abstract String consumirP();

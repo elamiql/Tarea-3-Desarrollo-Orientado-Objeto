@@ -1,5 +1,10 @@
 package org.example.model;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Clase abstracta producto.
  * Contiene informacion como codigo, nombre y precio.
@@ -21,6 +26,8 @@ public abstract class Producto {
      */
     private int precio;
 
+    private Image imagen;
+
     /**
      * Constructor de la clase Producto.
      *
@@ -28,10 +35,11 @@ public abstract class Producto {
      * @param nombre, Nombre del producto.
      * @param precio, Precio del producto.
      */
-    public Producto(int codigo, String nombre, int precio) {
+    public Producto(int codigo, String nombre, int precio, String imagePath) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
+        setImagen(imagePath);
     }
 
     /**
@@ -94,4 +102,22 @@ public abstract class Producto {
      * @return Una descripcion del sabor.
      */
     public abstract String consumirP();
+
+    private void setImagen(String imagePath){
+        try {
+            var is = getClass().getClassLoader().getResourceAsStream(imagePath);
+            if (is == null){
+                throw new IOException("No se encontro la imagen: "+ imagePath);
+            }
+            this.imagen = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
+            this.imagen = null;
+        }
+    }
+
+    public Image getImagen(){
+        return imagen;
+    }
 }

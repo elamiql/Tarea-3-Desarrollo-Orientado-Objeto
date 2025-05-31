@@ -50,6 +50,7 @@ public class Expendedor {
      */
     private List<Deposito<Producto>> productos;
 
+    private int numProductos;
     /**
      * Constructor del expendedor. Inicializa los depósitos de productos y monedas.
      *
@@ -58,7 +59,9 @@ public class Expendedor {
     public Expendedor(int numProductos) {
         productos = new ArrayList<>();
         monedasVuelto = new Deposito<>();
-        depositoSalida = new Deposito();
+        depositoSalida = new Deposito<>();
+        this.numProductos = numProductos;
+
         // Inicializa los depósitos de productos para cada tipo de producto.
         for (int i = 0; i < 5; i++) {
             productos.add(new Deposito<Producto>());
@@ -84,16 +87,21 @@ public class Expendedor {
      * @throws PagoInsuficienteException Si la moneda proporcionada es insuficiente.
      * @throws NoHayProductoException Si no hay producto disponible en el expendedor.
      */
-    public void comprarProducto(Moneda m, int cual) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+
+    public void productoSalida(Producto producto){
+        depositoSalida.addItem(producto);
+    }
+
+    public void comprarProducto(Moneda m, String nombreProducto)
+            throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
 
         // Verifica si la moneda es nula.
         if (m == null) {
             throw new PagoIncorrectoException("No tienes moneda (Moneda nula)");
         }
-
-        // Verifica si el índice del producto es válido.
-        if (cual < COCA || cual > SNICKERS) {
-            throw new NoHayProductoException("No hay producto o número de producto incorrecto");
+        int cual = obtenerIndiceProducto(nombreProducto);
+        if(cual == -1){
+            throw new NoHayProductoException("Producto no disponible");
         }
 
         // Obtiene el precio del producto basado en el índice.
@@ -117,10 +125,24 @@ public class Expendedor {
 
         // Calcula el cambio y lo devuelve en monedas de 100.
         int cambio = valMoneda - precioProductos;
+        while (cambio >= 1000){
+            monedasVuelto.addItem(new Moneda1000());
+            cambio = cambio - 1000;
+        }
+
+        while (cambio >= 500){
+            monedasVuelto.addItem(new Moneda500());
+            cambio = cambio - 500;
+        }
+
         while (cambio >= 100) {
             monedasVuelto.addItem(new Moneda100());
             cambio = cambio - 100;
         }
+
+        Producto productoComprado =  depositoProducto.getItem();
+        productoSalida(productoComprado);
+        System.out.println("Producto comprado y añadido al deposito de productos comprados: " + productoComprado.getNombre());
     }
 
     /**
@@ -128,15 +150,51 @@ public class Expendedor {
      *
      * @return una moneda de vuelto o nada si ya no quedan.
      */
-    public Moneda getVuelto() {
-        return monedasVuelto.getItem();
+
+    private int obtenerIndiceProducto(String nombreProducto) {
+        switch (nombreProducto) {
+            case "Coca Cola":
+                return COCA;
+            case "Sprite":
+                return SPRITE;
+            case "Fanta":
+                return FANTA;
+            case "Super8":
+                return SUPER8;
+            case "Snickers":
+                return SNICKERS;
+            default:
+                return -1;
+        }
+    }
+
+    public List<Moneda> getVueltoEnMonedas(){
+        List<Moneda> vueltoMonedas = new ArrayList<>(monedasVuelto.getAllItems());
+        monedasVuelto.clearItems();
+        return vueltoMonedas;
+    }
+
+    public int getVuelto() {
+        int totalVuelto = 0;
+        for(Moneda moneda : monedasVuelto.getAllItems()){
+            totalVuelto += moneda.getValor();
+        }
+        return totalVuelto;
     }
 
     public Producto getProducto(){
         return depositoSalida.getItem();
     }
 
-    public void productoCompra(Producto producto){
-        depositoSalida.addItem(producto);
+    public List<Deposito<Producto>> getProductos(){
+        return productos;
+    }
+
+    public Deposito<Producto> getDepositoSalida(){
+        return depositoSalida;
+    }
+
+    public int getNumProductos(){
+        return numProductos;
     }
 }

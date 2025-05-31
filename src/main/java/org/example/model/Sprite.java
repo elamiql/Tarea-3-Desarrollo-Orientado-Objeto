@@ -16,7 +16,7 @@ public class Sprite extends Bebida {
      * @param marca Marca de la bebida.
      */
     public Sprite(int codigo, String nombre, int precio, String marca) {
-        super(codigo, nombre, precio, marca);
+        super(codigo, nombre, precio, marca, "icon/sprite.png");
     }
 
     /**

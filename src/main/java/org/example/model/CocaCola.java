@@ -15,8 +15,7 @@ public class CocaCola extends Bebida {
      * @param marca,  Marca de la bebida.
      */
     public CocaCola(int codigo, String nombre, int precio, String marca) {
-        super(codigo, nombre, Precios.COCA_COLA.getPrecio(), marca);
-
+        super(codigo, nombre, Precios.COCA_COLA.getPrecio(), marca, "icon/coca_cola.png");
     }
 
     /**
