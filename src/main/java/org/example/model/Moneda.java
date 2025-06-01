@@ -5,13 +5,22 @@ package org.example.model;
  * Implementa la interfaz Comparable.
  */
 public abstract class Moneda implements Comparable<Moneda> {
-
+    private int serie;
+    private static int contador=0;
     /**
      * Constructor de Moneda.
      * Inicializa moneda.
      */
-    public Moneda() {}
-
+    public Moneda() {
+        serie=contador;
+        contador++;
+    }
+    public int getSerie(){
+        return serie;
+    }
+    public void setSerie(int n){
+        serie=n;
+    }
     /**
      * Método abstracto valor.
      * Cada clase hija debe implementar este método.

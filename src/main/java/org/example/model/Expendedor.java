@@ -123,20 +123,27 @@ public class Expendedor {
             throw new PagoInsuficienteException("Valor de moneda insuficiente");
         }
 
-        // Calcula el cambio y lo devuelve en monedas de 100.
+        // Calcula el cambio y lo devuelve en monedas del mas alto valor.
         int cambio = valMoneda - precioProductos;
+        Moneda nuevamoneda=null;
         while (cambio >= 1000){
-            monedasVuelto.addItem(new Moneda1000());
+            nuevamoneda=new Moneda1000();
+            monedasVuelto.addItem(nuevamoneda);
+            System.out.println("el numero de serie de la moneda es:" +nuevamoneda.getSerie());
             cambio = cambio - 1000;
         }
 
         while (cambio >= 500){
-            monedasVuelto.addItem(new Moneda500());
+            nuevamoneda=new Moneda500();
+            monedasVuelto.addItem(nuevamoneda);
+            System.out.println("el numero de serie de la moneda es:" +nuevamoneda.getSerie());
             cambio = cambio - 500;
         }
 
         while (cambio >= 100) {
-            monedasVuelto.addItem(new Moneda100());
+            nuevamoneda=new Moneda100();
+            System.out.println("el numero de serie de la moneda es:" +nuevamoneda.getSerie());
+            monedasVuelto.addItem(nuevamoneda);
             cambio = cambio - 100;
         }
 

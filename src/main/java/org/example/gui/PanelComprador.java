@@ -158,12 +158,16 @@ public class PanelComprador extends JPanel {
                 switch (valor){
                     case "$100":
                         nuevaMoneda = new Moneda100();
+                        System.out.println("el numero de serie de la moneda es:" +nuevaMoneda.getSerie());
+
                         break;
                     case "$500":
                         nuevaMoneda = new Moneda500();
+                        System.out.println("el numero de serie de la moneda es:" +nuevaMoneda.getSerie());
                         break;
                     case "$1000":
                         nuevaMoneda = new Moneda1000();
+                        System.out.println("el numero de serie de la moneda es:" +nuevaMoneda.getSerie());
                         break;
                 }
                 if (nuevaMoneda != null){

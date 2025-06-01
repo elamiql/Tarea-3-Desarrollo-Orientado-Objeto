@@ -5,7 +5,6 @@ package org.example.model;
  * Extiende la clase abstracta Moneda.
  */
 public class Moneda100 extends Moneda {
-
     /**
      * Constructor Moneda100.
      * Inicializa una nueva instancia de Moneda100.
