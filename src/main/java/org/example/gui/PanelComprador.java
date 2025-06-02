@@ -306,6 +306,7 @@ public class PanelComprador extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (!expendedor.getDepositoSalida().isEmpty()){
                     JOptionPane.showMessageDialog(PanelComprador.this, "El depósito ya tiene un producto");
+                    return;
                 }
 
                 actualizarProductoSel();

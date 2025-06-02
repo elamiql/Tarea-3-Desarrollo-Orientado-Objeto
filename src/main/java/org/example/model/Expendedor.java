@@ -77,20 +77,20 @@ public class Expendedor {
         }
     }
 
+
+    public void productoSalida(Producto producto){
+        depositoSalida.addItem(producto);
+    }
     /**
      * Permite comprar un producto a través del expendedor si el pago es correcto.
      *
      * @param m La moneda utilizada para la compra del producto.
-     * @param cual El índice del producto que se desea comprar.
+     * @param nombreProducto,  El índice del producto que se desea comprar.
      * @return El producto comprado.
      * @throws PagoIncorrectoException Si la moneda es nula.
      * @throws PagoInsuficienteException Si la moneda proporcionada es insuficiente.
      * @throws NoHayProductoException Si no hay producto disponible en el expendedor.
      */
-
-    public void productoSalida(Producto producto){
-        depositoSalida.addItem(producto);
-    }
 
     public void comprarProducto(Moneda m, String nombreProducto)
             throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
@@ -150,6 +150,7 @@ public class Expendedor {
         Producto productoComprado =  depositoProducto.getItem();
         productoSalida(productoComprado);
         System.out.println("Producto comprado y añadido al deposito de productos comprados: " + productoComprado.getNombre());
+        System.out.println("el numero de serie de "+ nombreProducto +" es: "+ productoComprado.getCodigo());
     }
 
     /**
