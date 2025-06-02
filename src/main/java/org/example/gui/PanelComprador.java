@@ -322,6 +322,16 @@ public class PanelComprador extends JPanel {
         contentPanel.add(productosPanel);
         add(contentPanel);
     }
+    private Precios obtenerPrecioEnum(String nombreProducto) {
+        switch (nombreProducto) {
+            case "Coca-Cola": return Precios.COCA_COLA;
+            case "Sprite": return Precios.SPRITE;
+            case "Fanta": return Precios.FANTA;
+            case "Super8": return Precios.SUPER8;
+            case "Snickers": return Precios.SNICKERS;
+            default: return null;
+        }
+    }
 
     private void addCompraButton(){
         JButton compraButton = new JButton("Comprar");
@@ -331,9 +341,11 @@ public class PanelComprador extends JPanel {
         compraButton.setBackground(new Color(0xFFFFFF));
         compraButton.setForeground(Color.WHITE);
 
+
         compraButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if (!expendedor.getDepositoSalida().isEmpty()){
                     JOptionPane.showMessageDialog(PanelComprador.this, "El depósito ya tiene un producto");
                     return;
@@ -341,47 +353,30 @@ public class PanelComprador extends JPanel {
 
                 actualizarProductoSel();
                 System.out.println(productoSeleccionado);
+
                 boolean compraLograda = false;
 
-                switch (productoSeleccionado){
-                    case "Ninguno":
-                        JOptionPane.showMessageDialog(PanelComprador.this, "Seleccione un producto");
-                        break;
-                    case "Coca-Cola":
-                        if (procesarCompra(Precios.COCA_COLA.getPrecio(), "Coca-Cola")){
-                            compraLograda = true;
-                        }
-                        break;
-                    case "Sprite":
-                        if (procesarCompra(Precios.COCA_COLA.getPrecio(), "Sprite")){
-                            compraLograda = true;
-                        }
-                        break;
+                Precios precioEnum = obtenerPrecioEnum(productoSeleccionado);
 
-                    case "Fanta":
-                        if (procesarCompra(Precios.COCA_COLA.getPrecio(), "Fanta")){
-                            compraLograda = true;
-                        }
-                    break;
+                if (precioEnum == null) {
+                    JOptionPane.showMessageDialog(PanelComprador.this, "Seleccione un producto válido");
+                    return;
+                }
 
-                    case "Super8":
-                        if (procesarCompra(Precios.COCA_COLA.getPrecio(), "Super8")){
-                            compraLograda = true;
-                        }
-                    break;
+                if (totalMonedas < precioEnum.getPrecio()) {
+                    JOptionPane.showMessageDialog(PanelComprador.this, "No te alcanza broder");
+                    return;
+                }
 
-                    case "Snickers":
-                        if (procesarCompra(Precios.COCA_COLA.getPrecio(), "Snickers")){
-                            compraLograda = true;
-                        }
-                    break;
+                if (procesarCompra(precioEnum.getPrecio(), productoSeleccionado)) {
+                    compraLograda = true;
                 }
                 if (compraLograda) {
-                    // Actualiza la vista principal y las monedas
+                    // Si la compra tuvo éxito, se actualiza la interfaz
                     panelPrincipal.refreshDisplay();
                     actualizarMonedasPanel();
 
-                    // Pregunta al usuario si desea realizar otra compra
+                    // Pregunta al usuario si desea hacer otra compra
                     int opcion = JOptionPane.showConfirmDialog(
                             PanelComprador.this,
                             "¿Deseas realizar otra compra?",
@@ -390,27 +385,38 @@ public class PanelComprador extends JPanel {
                     );
 
                     if (opcion == JOptionPane.NO_OPTION) {
+                        // Si el usuario no desea comprar otra cosa, reinicia selección
                         productoSeleccionado = "Ninguno";
                         productoSelLabel.setText("Producto Seleccionado: Ninguno");
-                        temp=1;
+                        temp = 1;
                         actualizarPantalla();
                         actualizarMonedasPanel();
-
                     }
                 }
+                // Si no se logró la compra pero sí se seleccionó producto
                 else if (!productoSeleccionado.equals("Ninguno")) {
-                    if (Precios.SNICKERS.getPrecio() > totalMonedas) {
+                    int precio = Precios.valueOf(productoSeleccionado.toUpperCase().replace("-", "_")).getPrecio();
+                    if (totalMonedas < precio) {
                         JOptionPane.showMessageDialog(
                                 PanelComprador.this,
                                 "No te alcanza broder"
                         );
+                        // reinicia selección
+                        productoSeleccionado = "Ninguno";
+                        productoSelLabel.setText("Producto Seleccionado: Ninguno");
+                        temp = 1;
+                        actualizarPantalla();
+                        actualizarMonedasPanel();
                     }
                 }
 
             }
         });
+
+        // Agrega el botón al panel
         add(compraButton);
     }
+
 
     private List<Moneda> removerMonedas(int cantidad){
         List<Moneda> monedasParaRemover = new ArrayList<>();
@@ -441,7 +447,7 @@ public class PanelComprador extends JPanel {
         if (monedasUsadas != null){
             try {
                 expendedor.comprarProducto(monedasUsadas, cual);
-                actualizarTotalMonedas(totalMonedas - monedasUsadas.get(0).getValor());
+                actualizarTotalMonedas(totalMonedas - precioProducto);
                 JOptionPane.showMessageDialog(PanelComprador.this, "Compra realizada: " + cual);
                 return true;
             } catch (Exception e) {
