@@ -24,7 +24,7 @@ public class Moneda500 extends Moneda {
     }
 
     public String getImagePath(){
-        return "icon/moneda.png";
+        return "icon/moneda1.png";
     }
 
 }

@@ -348,6 +348,7 @@ public class PanelComprador extends JPanel {
                 }
                 if (compraLograda){
                     panelPrincipal.refreshDisplay();
+
                     actualizarMonedasPanel();
                 }
                 else if (!productoSeleccionado.equals("Ninguno")){
@@ -358,6 +359,7 @@ public class PanelComprador extends JPanel {
             }
         });
         add(compraButton);
+
     }
 
     private List<Moneda> removerMonedas(int cantidad){

@@ -161,7 +161,7 @@ public class Expendedor {
 
     private int obtenerIndiceProducto(String nombreProducto) {
         switch (nombreProducto) {
-            case "Coca Cola":
+            case "Coca-Cola":
                 return COCA;
             case "Sprite":
                 return SPRITE;
