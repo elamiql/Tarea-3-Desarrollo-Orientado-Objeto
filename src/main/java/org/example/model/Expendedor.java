@@ -92,7 +92,7 @@ public class Expendedor {
      * @throws NoHayProductoException Si no hay producto disponible en el expendedor.
      */
 
-    public void comprarProducto(Moneda m, String nombreProducto)
+    public void comprarProducto(List<Moneda> m, String nombreProducto)
             throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
 
         // Verifica si la moneda es nula.
@@ -116,7 +116,10 @@ public class Expendedor {
         }
 
         // Obtiene el valor de la moneda.
-        int valMoneda = m.getValor();
+        int valMoneda = 0;
+        for (Moneda moneda : m){
+            valMoneda += moneda.getValor();
+        }
 
         // Verifica si la moneda es insuficiente para cubrir el precio.
         if (valMoneda < precioProductos) {

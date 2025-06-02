@@ -291,7 +291,6 @@ public class PanelComprador extends JPanel {
         }
     }
 
-
     private void Producto(){
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
@@ -441,7 +440,7 @@ public class PanelComprador extends JPanel {
         List<Moneda> monedasUsadas = removerMonedas(precioProducto);
         if (monedasUsadas != null){
             try {
-                expendedor.comprarProducto(monedasUsadas.get(0), cual);
+                expendedor.comprarProducto(monedasUsadas, cual);
                 actualizarTotalMonedas(totalMonedas - monedasUsadas.get(0).getValor());
                 JOptionPane.showMessageDialog(PanelComprador.this, "Compra realizada: " + cual);
                 return true;
