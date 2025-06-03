@@ -132,17 +132,20 @@ public class Expendedor {
         while (cambio >= 1000){
             nuevamoneda=new Moneda1000();
             monedasVuelto.addItem(nuevamoneda);
+            System.out.println("el numero de serie de la moneda es:" +nuevamoneda.getSerie());
             cambio = cambio - 1000;
         }
 
         while (cambio >= 500){
             nuevamoneda=new Moneda500();
             monedasVuelto.addItem(nuevamoneda);
+            System.out.println("el numero de serie de la moneda es:" +nuevamoneda.getSerie());
             cambio = cambio - 500;
         }
 
         while (cambio >= 100) {
             nuevamoneda=new Moneda100();
+            System.out.println("el numero de serie de la moneda es:" +nuevamoneda.getSerie());
             monedasVuelto.addItem(nuevamoneda);
             cambio = cambio - 100;
         }

@@ -5,7 +5,6 @@ package org.example.model;
  * Extiende la clase abstracta Moneda.
  */
 public class Moneda100 extends Moneda {
-
     /**
      * Constructor Moneda100.
      * Inicializa una nueva instancia de Moneda100.
@@ -24,6 +23,6 @@ public class Moneda100 extends Moneda {
     }
 
     public String getImagePath(){
-        return "icon/moneda.png";
+        return "icon/moneda2.png";
     }
 }
