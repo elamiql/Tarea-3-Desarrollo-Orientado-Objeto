@@ -10,7 +10,9 @@ public abstract class Moneda implements Comparable<Moneda> {
      * Constructor de Moneda.
      * Inicializa moneda.
      */
-    public Moneda() {}
+    public Moneda() {
+        
+    }
 
     /**
      * Método abstracto valor.

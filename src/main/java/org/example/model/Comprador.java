@@ -1,8 +1,11 @@
+
 package org.example.model;
 
 import org.example.exceptions.NoHayProductoException;
 import org.example.exceptions.PagoIncorrectoException;
 import org.example.exceptions.PagoInsuficienteException;
+
+import java.util.List;
 
 /**
  * Clase que representa un comprador que interactúa con el expendedor.
@@ -23,17 +26,17 @@ public class Comprador {
     /**
      * Constructor de la clase Comprador.
      *
-     * @param m Moneda que utiliza el comprador.
+     * @param monedas Moneda que utiliza el comprador.
      * @param productoNombre Índice del producto que se decea.
      * @param exp Expendedor que se utiliza.
      * @throws NoHayProductoException Si no hay un producto disponible.
      * @throws PagoInsuficienteException Si el pago es insuficiente.
      * @throws PagoIncorrectoException Si el pago es incorrecto.
      */
-    public Comprador(Moneda m, String productoNombre, Expendedor exp)
+    public Comprador(List<Moneda> monedas, String productoNombre, Expendedor exp)
             throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
 
-        exp.comprarProducto(m, productoNombre);  // Intenta comprar el producto.
+        exp.comprarProducto(monedas, productoNombre);  // Intenta comprar el producto.
         Producto producto = exp.getProducto();
 
         // Si se compra un producto, se asigna el sonido.
@@ -72,4 +75,3 @@ public class Comprador {
         return sonido;
     }
 }
-

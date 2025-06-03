@@ -77,22 +77,22 @@ public class Expendedor {
         }
     }
 
+
+    public void productoSalida(Producto producto){
+        depositoSalida.addItem(producto);
+    }
     /**
      * Permite comprar un producto a través del expendedor si el pago es correcto.
      *
      * @param m La moneda utilizada para la compra del producto.
-     * @param cual El índice del producto que se desea comprar.
+     * @param nombreProducto,  El índice del producto que se desea comprar.
      * @return El producto comprado.
      * @throws PagoIncorrectoException Si la moneda es nula.
      * @throws PagoInsuficienteException Si la moneda proporcionada es insuficiente.
      * @throws NoHayProductoException Si no hay producto disponible en el expendedor.
      */
 
-    public void productoSalida(Producto producto){
-        depositoSalida.addItem(producto);
-    }
-
-    public void comprarProducto(Moneda m, String nombreProducto)
+    public void comprarProducto(List<Moneda> m, String nombreProducto)
             throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
 
         // Verifica si la moneda es nula.
@@ -116,33 +116,41 @@ public class Expendedor {
         }
 
         // Obtiene el valor de la moneda.
-        int valMoneda = m.getValor();
+        int valMoneda = 0;
+        for (Moneda moneda : m){
+            valMoneda += moneda.getValor();
+        }
 
         // Verifica si la moneda es insuficiente para cubrir el precio.
         if (valMoneda < precioProductos) {
             throw new PagoInsuficienteException("Valor de moneda insuficiente");
         }
 
-        // Calcula el cambio y lo devuelve en monedas de 100.
+        // Calcula el cambio y lo devuelve en monedas del mas alto valor.
         int cambio = valMoneda - precioProductos;
+        Moneda nuevamoneda=null;
         while (cambio >= 1000){
-            monedasVuelto.addItem(new Moneda1000());
+            nuevamoneda=new Moneda1000();
+            monedasVuelto.addItem(nuevamoneda);
             cambio = cambio - 1000;
         }
 
         while (cambio >= 500){
-            monedasVuelto.addItem(new Moneda500());
+            nuevamoneda=new Moneda500();
+            monedasVuelto.addItem(nuevamoneda);
             cambio = cambio - 500;
         }
 
         while (cambio >= 100) {
-            monedasVuelto.addItem(new Moneda100());
+            nuevamoneda=new Moneda100();
+            monedasVuelto.addItem(nuevamoneda);
             cambio = cambio - 100;
         }
 
         Producto productoComprado =  depositoProducto.getItem();
         productoSalida(productoComprado);
         System.out.println("Producto comprado y añadido al deposito de productos comprados: " + productoComprado.getNombre());
+        System.out.println("el numero de serie de "+ nombreProducto +" es: "+ productoComprado.getCodigo());
     }
 
     /**
@@ -153,7 +161,7 @@ public class Expendedor {
 
     private int obtenerIndiceProducto(String nombreProducto) {
         switch (nombreProducto) {
-            case "Coca Cola":
+            case "Coca-Cola":
                 return COCA;
             case "Sprite":
                 return SPRITE;
