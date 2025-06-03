@@ -35,22 +35,15 @@ public class PanelPrincipal extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
 
-        gbc.weightx = 0.3;
+        gbc.weightx = 0.25;
         gbc.weighty = 1.0;
         gbc.gridx = 0;
         gbc.gridy = 0;
 
         this.add(com, gbc);
-        gbc.weightx = 0.7;
+        gbc.weightx = 0.75;
         gbc.gridx = 1;
         this.add(exp, gbc);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g){
-        super.paintComponent(g);
-        com.paintComponent(g);
-        exp.paintComponent(g);
     }
 
     public void refreshDisplay(){

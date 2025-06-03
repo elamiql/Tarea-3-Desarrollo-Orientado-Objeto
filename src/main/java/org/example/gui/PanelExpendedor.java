@@ -32,7 +32,7 @@ public class PanelExpendedor extends JPanel {
 
     public PanelExpendedor(Expendedor expendedor){
         this.expendedor = expendedor;
-        this.setPreferredSize(new Dimension(250, 600));
+        this.setPreferredSize(new Dimension(504, 137));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(0xFFFFFF));
         this.add(Box.createVerticalStrut(20));
@@ -219,14 +219,13 @@ public class PanelExpendedor extends JPanel {
                 int precioX = x + (64 - g.getFontMetrics().stringWidth(precio)) / 2;
                 int precioY = y + 64 + espacioPrecio;
                 g.drawString(precio, precioX, precioY);
-                x += 600/8;
+                x += 504/8;
 
                 if ((j+1)%productosPorFila == 0){
                     x = xStart;
                     y += espacioVertical;
                 }
             }
-
             yStart += espacioVertical;
             y=yStart;
             x=xStart;
