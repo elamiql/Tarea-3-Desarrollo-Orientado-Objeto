@@ -15,7 +15,7 @@ public class Super8 extends Dulce {
      * @param sabor  Sabor del dulce.
      */
     public Super8(int codigo, String nombre, int precio, String sabor) {
-        super(codigo, nombre, Precios.SUPER8.getPrecio(), sabor, "icon/icon.png");
+        super(codigo, nombre, Precios.SUPER8.getPrecio(), sabor, "icon/super8.png");
     }
 
     /**

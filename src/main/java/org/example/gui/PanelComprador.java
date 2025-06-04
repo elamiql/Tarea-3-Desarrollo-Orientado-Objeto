@@ -84,10 +84,10 @@ public class PanelComprador extends JPanel {
     private void Monedas() {
         // Panel horizontal que contiene el texto "Añadir monedas"
         añadirMonedas = new JPanel();
-        añadirMonedas.setLayout(new BoxLayout(añadirMonedas, BoxLayout.X_AXIS));
+        añadirMonedas.setLayout(new BoxLayout(añadirMonedas, BoxLayout.Y_AXIS));
         añadirMonedas.setOpaque(false); // Fondo transparente
 
-        JLabel monedasLabel = new JLabel("Añadir monedas:");
+        JLabel monedasLabel = new JLabel("Ingresar Monedas");
         monedasLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         monedasLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         añadirMonedas.add(monedasLabel);
@@ -97,7 +97,7 @@ public class PanelComprador extends JPanel {
 
         // Panel principal que contendrá la imagen y los botones de monedas, dispuestos horizontalmente
         mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setOpaque(false); // Fondo transparente
 
         // Panel que contendrá los botones de monedas, dispuestos verticalmente
@@ -137,7 +137,7 @@ public class PanelComprador extends JPanel {
 
         monedasPanel = new JPanel();
         monedasPanel.setLayout(new BoxLayout(monedasPanel, BoxLayout.Y_AXIS));
-        monedasPanel.setBackground(new Color(0x000FFF));
+        monedasPanel.setBackground(new Color(0xFFFFFF));
         monedasPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         monedasPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -202,8 +202,8 @@ public class PanelComprador extends JPanel {
         ingresar.setFont(new Font("Times New Roman", Font.BOLD, 20));
         ingresar.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         ingresar.setBorder(BorderFactory.createRaisedBevelBorder());
-        ingresar.setBackground(new Color(0xFFF000));
-        ingresar.setForeground(Color.WHITE);
+        ingresar.setBackground(new Color(0xFFFFFF));
+        ingresar.setForeground(Color.BLACK);
         ingresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -221,14 +221,14 @@ public class PanelComprador extends JPanel {
         for (Moneda moneda : listaMonedas){
             JPanel monedaPanel = new JPanel();
             monedaPanel.setLayout(new BoxLayout(monedaPanel, BoxLayout.X_AXIS));
-            monedaPanel.setBackground(new Color(0xffaadd));
+            monedaPanel.setBackground(new Color(0xFFFFFF));
 
             JLabel label = new JLabel("Moneda $ "+ moneda.getValor());
             label.setFont(new Font("Times New Roman", Font.BOLD, 16));
 
             try {
                 BufferedImage monedaImage = ImageIO.read(new File(moneda.getImagePath()));
-                ImageIcon monedaIcon = new ImageIcon(monedaImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+                ImageIcon monedaIcon = new ImageIcon(monedaImage.getScaledInstance(64 + 25, 64 + 25, Image.SCALE_SMOOTH));
                 JLabel monedaLabel = new JLabel(monedaIcon);
                 monedaPanel.add(monedaLabel);
             } catch (IOException e){
@@ -279,10 +279,10 @@ public class PanelComprador extends JPanel {
 
     private ImageIcon loadImage() {
         try {
-            File imagePath = new File("icon/icon.png");
+            File imagePath = new File("icon/coinAcceptor.png");
             BufferedImage originalImage = ImageIO.read(imagePath);
-            int width = 100;
-            int height = 100;
+            int width = 64 + 30;
+            int height = 64 + 30;
             Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             return new ImageIcon(scaledImage);
         } catch (IOException e) {
