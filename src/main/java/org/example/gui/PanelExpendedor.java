@@ -43,9 +43,9 @@
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    super.mouseClicked(e);
+                    handleMouseEvent(e);
                 }
-            });
+            });;
         }
 
         public void setPanelComprador(PanelComprador panelComprador){
@@ -125,18 +125,35 @@
             subPanelVuelto.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
             subPanelVuelto.setBackground(new Color(0x000F123, true));
 
-            int vuelto = expendedor.getVuelto();
+            int cambio = expendedor.getVuelto();
             JLabel subLabel = new JLabel("$" + vuelto);
             subLabel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
             subLabel.setForeground(Color.white);
             subPanelVuelto.add(subLabel);
 
-            // Añadir monedas escaladas
-            for (int i = 0; i < vuelto; i += 100) {
-                ImageIcon iconoOriginal = new ImageIcon("icon/moneda100.png");
-                Image imagenMoneda = iconoOriginal.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-                JLabel labelMoneda = new JLabel(new ImageIcon(imagenMoneda));
-                subPanelVuelto.add(labelMoneda);
+
+            while (cambio >= 1000) {
+                ImageIcon icono = new ImageIcon("icon/moneda1000.png");
+                Image imagen = icono.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                JLabel label = new JLabel(new ImageIcon(imagen));
+                subPanelVuelto.add(label);
+                cambio -= 1000;
+            }
+
+            while (cambio >= 500) {
+                ImageIcon icono = new ImageIcon("icon/moneda500.png");
+                Image imagen = icono.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                JLabel label = new JLabel(new ImageIcon(imagen));
+                subPanelVuelto.add(label);
+                cambio -= 500;
+            }
+
+            while (cambio >= 100) {
+                ImageIcon icono = new ImageIcon("icon/moneda100.png");
+                Image imagen = icono.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                JLabel label = new JLabel(new ImageIcon(imagen));
+                subPanelVuelto.add(label);
+                cambio -= 100;
             }
 
             // Agregar subpanel al panel principal
@@ -155,41 +172,61 @@
             int xClic = e.getX();
             int yClic = e.getY();
 
+
             if (xClic >= xInicio && xClic <= (xInicio + ancho) && yClic >= yInicio && yClic <= (yInicio + alto)){
+
                 rellenarDeposito(expendedor.getNumProductos());
             }
         }
 
         private void rellenarDeposito(int numProductos){
             List<Deposito<Producto>> depositos = expendedor.getProductos();
-            for (int i=0; i<depositos.size(); i++){
+
+            for (int i = 0; i < depositos.size(); i++) {
                 Deposito<Producto> deposito = depositos.get(i);
-                while (depositos.size() < numProductos){
-                    switch (i) {
-                        case Expendedor.COCA - 1:
-                            deposito.addItem(new CocaCola(deposito.size(), "CocaCola", Precios.COCA_COLA.getPrecio(), "CocaCola"));
-                            break;
 
-                        case Expendedor.SPRITE - 1:
-                            deposito.addItem(new Sprite(deposito.size(), "Sprite", Precios.SPRITE.getPrecio(), "Sprite"));
-                            break;
+                if (deposito.size() == 0) {
 
-                        case Expendedor.FANTA - 1:
-                            deposito.addItem(new Fanta(deposito.size(), "Fanta", Precios.FANTA.getPrecio(), "Fanta"));
-                            break;
+                    for (int j = 0; j < numProductos; j++) {
+                        Producto nuevoProducto = null;
 
-                        case Expendedor.SUPER8 - 1:
-                            deposito.addItem(new Super8(deposito.size(), "Super8", Precios.SUPER8.getPrecio(), "Super8"));
-                            break;
+                        switch (i) {
+                            case Expendedor.COCA - 1:
+                                nuevoProducto = new CocaCola(j, "CocaCola", Precios.COCA_COLA.getPrecio(), "CocaCola");
+                                break;
 
-                        case Expendedor.SNICKERS - 1:
-                            deposito.addItem(new Snickers(deposito.size(), "Snickers", Precios.SNICKERS.getPrecio(), "Snickers"));
-                            break;
+                            case Expendedor.SPRITE - 1:
+                                nuevoProducto = new Sprite(j, "Sprite", Precios.SPRITE.getPrecio(), "Sprite");
+                                break;
+
+                            case Expendedor.FANTA - 1:
+                                nuevoProducto = new Fanta(j, "Fanta", Precios.FANTA.getPrecio(), "Fanta");
+                                break;
+
+                            case Expendedor.SUPER8 - 1:
+                                nuevoProducto = new Super8(j, "Super8", Precios.SUPER8.getPrecio(), "Super8");
+                                break;
+
+                            case Expendedor.SNICKERS - 1:
+                                nuevoProducto = new Snickers(j, "Snickers", Precios.SNICKERS.getPrecio(), "Snickers");
+                                break;
+
+                            default:
+                                System.out.println("Índice desconocido: " + i);
+                        }
+
+                        if (nuevoProducto != null) {
+                            deposito.addItem(nuevoProducto);
+                        }
                     }
                 }
             }
+
             repaint();
         }
+
+
+
 
         @Override
         protected void paintComponent(Graphics g){

@@ -339,7 +339,7 @@ public class PanelComprador extends JPanel {
         compraButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         compraButton.setBorder(BorderFactory.createRaisedBevelBorder());
         compraButton.setBackground(new Color(0xFFFFFF));
-        compraButton.setForeground(Color.WHITE);
+        compraButton.setForeground(Color.BLACK);
 
 
         compraButton.addActionListener(new ActionListener() {
