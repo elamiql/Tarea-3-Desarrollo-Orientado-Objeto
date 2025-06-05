@@ -444,10 +444,14 @@ public class PanelComprador extends JPanel {
 
     private boolean procesarCompra(int precioProducto, String cual){
         List<Moneda> monedasUsadas = removerMonedas(precioProducto);
+        int x=0;
         if (monedasUsadas != null){
             try {
                 expendedor.comprarProducto(monedasUsadas, cual);
-                actualizarTotalMonedas(totalMonedas - precioProducto);
+                for(Moneda moneda:monedasUsadas){
+                     x +=moneda.getValor();
+                }
+                actualizarTotalMonedas(totalMonedas - x);
                 JOptionPane.showMessageDialog(PanelComprador.this, "Compra realizada: " + cual);
                 return true;
             } catch (Exception e) {
