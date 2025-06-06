@@ -26,6 +26,9 @@ public abstract class Producto {
      */
     private int precio;
 
+    /**
+     * Imagen del producto.
+     */
     private Image imagen;
 
     /**
@@ -34,6 +37,7 @@ public abstract class Producto {
      * @param codigo, Codigo del producto.
      * @param nombre, Nombre del producto.
      * @param precio, Precio del producto.
+     * @param imagePath, Imagen del producto.
      */
     public Producto(int codigo, String nombre, int precio, String imagePath) {
         this.codigo = codigo;
@@ -103,6 +107,11 @@ public abstract class Producto {
      */
     public abstract String consumirP();
 
+    /**
+     * Setea la imagen del producto.
+     *
+     * @param imagePath Nuevo imagen del producto.
+     */
     private void setImagen(String imagePath){
         try {
             var is = getClass().getClassLoader().getResourceAsStream(imagePath);
@@ -117,6 +126,10 @@ public abstract class Producto {
         }
     }
 
+    /**
+     * obtiene la imagen del producto.
+     * @return La imagen del producto.
+     */
     public Image getImagen(){
         return imagen;
     }

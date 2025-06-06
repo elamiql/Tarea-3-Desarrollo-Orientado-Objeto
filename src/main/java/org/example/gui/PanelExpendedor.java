@@ -11,14 +11,32 @@
     import java.util.List;
 
 
+    /**
+     * Clase que representa el panel del expendedor dentro de la interfaz gráfica.
+     * Muestra los productos disponibles, permite recoger el producto comprado y el vuelto,
+     * y permite rellenar los depósitos vacíos.
+     */
     public class PanelExpendedor extends JPanel {
+
+        /**Instancia del expendedor que gestiona los productos y monedas.*/
         private Expendedor expendedor;
+
+        /**Panel del comprador, usado para actualizar el vuelto visualmente.*/
         private PanelComprador panelComprador;
+
+        /**Panel donde se muestra el producto entregado y el vuelto.*/
         private JPanel depositoPanel;
+
+        /**Botón para recoger el producto comprado y el vuelto.*/
         private JButton tomarProductoButton;
+
+        /** Imagen de fondo del panel. */
         private Image imagenFondo;
+
+        /** Cantidad de vuelto a mostrar. */
         int vuelto = 0;
 
+        // Bloque de inicialización para cargar la imagen de fondo
         {
             try {
                 imagenFondo = ImageIO.read(new File("icon/fondo.png"));
@@ -30,6 +48,11 @@
             }
         }
 
+        /**
+         * Constructor del PanelExpendedor.
+         *
+         * @param expendedor Instancia del expendedor.
+         */
         public PanelExpendedor(Expendedor expendedor){
             this.expendedor = expendedor;
             this.setPreferredSize(new Dimension(300, 137));
@@ -48,10 +71,18 @@
             });;
         }
 
+        /**
+         * Asocia el panel del comprador a este panel.
+         *
+         * @param panelComprador El panel del comprador.
+         */
         public void setPanelComprador(PanelComprador panelComprador){
             this.panelComprador = panelComprador;
         }
 
+        /**
+         * Crea y configura el título "Expendedor" en el panel.
+         */
         private void Label(){
             JPanel tittlePanel = new JPanel();
             tittlePanel.setLayout(new BoxLayout(tittlePanel, BoxLayout.X_AXIS));
@@ -68,6 +99,9 @@
             this.add(tittlePanel);
         }
 
+        /**
+         * Crea el botón para recoger el producto y el vuelto, y define su comportamiento.
+         */
         private void recogerProducto(){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             tomarProductoButton = new JButton("Recoger Producto y Vuelto");
@@ -96,6 +130,9 @@
             add(Box.createVerticalGlue());
         }
 
+        /**
+         * Inicializa el panel de deposito donde se mostrará el producto y vuelto.
+         */
         private void deposito(){
             depositoPanel = new JPanel();
             depositoPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -105,6 +142,9 @@
             this.add(depositoPanel);
         }
 
+        /**
+         * Refresca la visualización del depósito con el producto y el vuelto disponibles.
+         */
         public void refreshDeposito() {
             // Limpiar el panel
             depositoPanel.removeAll();
@@ -163,6 +203,12 @@
             depositoPanel.revalidate();
             depositoPanel.repaint();
         }
+
+        /**
+         * Maneja los eventos de clic en el panel. Rellena los depósitos vacíos si se hace clic dentro del área específica.
+         *
+         * @param e Evento del mouse.
+         */
         public void handleMouseEvent(MouseEvent e){
             int xInicio = 50;
             int yInicio = 50;
@@ -179,6 +225,11 @@
             }
         }
 
+        /**
+         * Rellena los depósitos vacíos con nuevos productos según el tipo.
+         *
+         * @param numProductos Número de productos a agregar por depósito.
+         */
         private void rellenarDeposito(int numProductos){
             List<Deposito<Producto>> depositos = expendedor.getProductos();
 
@@ -227,7 +278,11 @@
 
 
 
-
+        /**
+         * Dibuja la interfaz gráfica del expendedor, fondo, productos y precios.
+         *
+         * @param g Objeto Graphics usado para dibujar.
+         */
         @Override
         protected void paintComponent(Graphics g){
             super.paintComponent(g);

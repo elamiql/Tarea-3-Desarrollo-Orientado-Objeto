@@ -21,6 +21,11 @@ public class Moneda1000 extends Moneda {
     public int getValor() {
         return 1000;
     }
+
+    /**
+     * Obtiene el camino de la imagen de moneda.
+     * @return el camino de la imagen de moneda.
+     */
     public String getImagePath(){
         return "icon/moneda1000.png";
     }

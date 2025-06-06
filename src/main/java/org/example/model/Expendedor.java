@@ -43,6 +43,9 @@ public class Expendedor {
      */
     private Deposito<Moneda> monedasVuelto;
 
+    /**
+     * Depósito que contiene los productos de salida que se da al comprador.
+     */
     private Deposito<Producto> depositoSalida;
 
     /**
@@ -50,6 +53,9 @@ public class Expendedor {
      */
     private List<Deposito<Producto>> productos;
 
+    /**
+     * Número de productos disponibles por tipo.
+     */
     private int numProductos;
     /**
      * Constructor del expendedor. Inicializa los depósitos de productos y monedas.
@@ -179,12 +185,21 @@ public class Expendedor {
         }
     }
 
+    /**
+     * Obtiene una lista con todas las monedas de vuelto acumuladas y las elimina del deposito.
+     * @return Lista de monedas como vuelto.
+     */
     public List<Moneda> getVueltoEnMonedas(){
         List<Moneda> vueltoMonedas = new ArrayList<>(monedasVuelto.getAllItems());
         monedasVuelto.clearItems();
         return vueltoMonedas;
     }
 
+    /**
+     * Calcula el total del vuelto disponible.
+     *
+     * @return Suma total del valor del vuelto.
+     */
     public int getVuelto() {
         int totalVuelto = 0;
         for(Moneda moneda : monedasVuelto.getAllItems()){
@@ -193,18 +208,35 @@ public class Expendedor {
         return totalVuelto;
     }
 
+    /**
+     * Obtiene un producto del depósito de salida.
+     * @return Producto de salida.
+     */
     public Producto getProducto(){
         return depositoSalida.getItem();
     }
 
+    /**
+     * Obtiene la lista de depositos de productos.
+     * @return Lista de productos.
+     */
     public List<Deposito<Producto>> getProductos(){
         return productos;
     }
+
+    /**
+     * Obtiene el deposito de salida de productos comprados.
+     * @return Depósito de salida.
+     */
 
     public Deposito<Producto> getDepositoSalida(){
         return depositoSalida;
     }
 
+    /**
+     * Obtiene el numero de productos disponibles.
+     * @return Numero de productos.
+     */
     public int getNumProductos(){
         return numProductos;
     }

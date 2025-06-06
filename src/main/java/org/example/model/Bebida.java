@@ -17,6 +17,7 @@ public abstract class Bebida extends Producto {
      * @param nombre, Nombre del producto.
      * @param precio, Precio del producto.
      * @param marca , Marca de la bebida.
+     * @param imagePath , camino del archivo de imagen.
      */
     public Bebida(int serie, String nombre, int precio, String marca, String imagePath) {
         super(serie, nombre, precio, imagePath);

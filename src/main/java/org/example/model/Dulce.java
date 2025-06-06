@@ -17,6 +17,7 @@ public abstract class Dulce extends Producto {
      * @param nombre, Nombre del producto.
      * @param precio, Precio del producto.
      * @param sabor,  Sabor del dulce.
+     * @param imagePath , camino del archivo de imagen.
      */
     public Dulce(int codigo, String nombre, int precio, String sabor, String imagePath) {
         super(codigo, nombre, precio, imagePath);
