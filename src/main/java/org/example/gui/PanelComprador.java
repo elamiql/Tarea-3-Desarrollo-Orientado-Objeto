@@ -30,7 +30,7 @@ public class PanelComprador extends JPanel {
     private Expendedor expendedor;
     int temp = 1;
     private List<Moneda> listaMonedas = new ArrayList<>();
-    private boolean monedasInicializadas = false;
+
 
     /**
      * Constructor del PanelComprador.
@@ -48,6 +48,23 @@ public class PanelComprador extends JPanel {
         this.add(Box.createVerticalStrut(15));
         actualizarPantalla();
         this.add(Box.createVerticalStrut(15));
+        listaMonedas = new ArrayList<>();
+        inicializarMonedas();
+
+        actualizarPantalla();
+        actualizarMonedasPanel();
+
+
+    }
+    private void inicializarMonedas() {
+
+        listaMonedas.add(new Moneda1000());
+        listaMonedas.add(new Moneda1000());
+
+        // Calcular total
+        for (Moneda m : listaMonedas) {
+            totalMonedas += m.getValor();
+        }
     }
 
     /**
@@ -66,7 +83,7 @@ public class PanelComprador extends JPanel {
         add(productoSelLabel);
         this.add(Box.createVerticalStrut(5));
 
-        totalMonedasLabel = new JLabel("Tus monedas: $0");
+        totalMonedasLabel = new JLabel("Tus monedas: $"+totalMonedas);
         totalMonedasLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         totalMonedasLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(totalMonedasLabel);
