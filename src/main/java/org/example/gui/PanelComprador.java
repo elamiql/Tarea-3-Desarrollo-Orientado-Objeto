@@ -71,20 +71,21 @@ public class PanelComprador extends JPanel {
      * Agrega etiquetas al panel.
      */
     private void Labels(){
+        this.add(Box.createVerticalStrut(8));
         JLabel titulo = new JLabel("Comprador");
-        titulo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        titulo.setFont(new Font("Comic Sans", Font.BOLD, 20));
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titulo);
         this.add(Box.createVerticalStrut(5));
 
         productoSelLabel = new JLabel("Producto Seleccionado: Ninguno");
-        productoSelLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        productoSelLabel.setFont(new Font("Comic Sans", Font.PLAIN, 16));
         productoSelLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(productoSelLabel);
         this.add(Box.createVerticalStrut(5));
 
         totalMonedasLabel = new JLabel("Tus monedas: $"+totalMonedas);
-        totalMonedasLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        totalMonedasLabel.setFont(new Font("Comic Sans", Font.PLAIN, 16));
         totalMonedasLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(totalMonedasLabel);
     }
@@ -187,7 +188,7 @@ public class PanelComprador extends JPanel {
         monedasPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel monedasLabel = new JLabel("Tus Monedas:");
-        monedasLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        monedasLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         monedasPanel.add(monedasLabel);
 
         JScrollPane scrollPane = new JScrollPane(monedasPanel);
@@ -348,8 +349,8 @@ public class PanelComprador extends JPanel {
         try {
             File imagePath = new File("icon/coinAcceptor.png");
             BufferedImage originalImage = ImageIO.read(imagePath);
-            int width = 64 + 30;
-            int height = 64 + 30;
+            int width = 64 + 25;
+            int height = 64 + 25;
             Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             return new ImageIcon(scaledImage);
         } catch (IOException e) {
@@ -488,10 +489,8 @@ public class PanelComprador extends JPanel {
                         actualizarMonedasPanel();
                     }
                 }
-
             }
         });
-
         // Agrega el botón al panel
         add(compraButton);
     }

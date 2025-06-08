@@ -12,7 +12,8 @@ import java.io.IOException;
  * para una máquina expendedora.
  */
 public class Ventana extends JFrame {
-
+    public int height = 800;
+    public int width = 1260;
     /**
      * Constructor de la clase Ventana.
      *
@@ -30,7 +31,7 @@ public class Ventana extends JFrame {
     private void configurarVentana() {
         this.setTitle("Maquina Expendedora"); // Título de la ventana
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Al cerrar la ventana se termina el programa
-        this.setSize(1260, 800); // Tamaño de la ventana
+        this.setSize(width, height); // Tamaño de la ventana
         this.setResizable(false); // Impide que la ventana sea redimensionada
         this.setLocationRelativeTo(null); // Centra la ventana
         this.setVisible(true); // Hace visible la ventana

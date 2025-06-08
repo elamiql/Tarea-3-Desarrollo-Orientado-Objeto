@@ -56,11 +56,11 @@
         public PanelExpendedor(Expendedor expendedor){
             this.expendedor = expendedor;
             this.setPreferredSize(new Dimension(300, 137));
-            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
             this.setBackground(new Color(0xFFFFFF));
-            this.add(Box.createVerticalStrut(10));
+            this.add(Box.createVerticalStrut(8));
             Label();
-            this.add(Box.createVerticalStrut(630));
+            this.add(Box.createVerticalStrut(650));
             recogerProducto();
             deposito();
             this.addMouseListener(new MouseAdapter() {
@@ -68,7 +68,7 @@
                 public void mouseClicked(MouseEvent e) {
                     handleMouseEvent(e);
                 }
-            });;
+            });
         }
 
         /**
@@ -112,7 +112,7 @@
             tomarProductoButton.setBorder(BorderFactory.createRaisedBevelBorder());
             tomarProductoButton.setOpaque(true);
 
-            tomarProductoButton.addActionListener(e ->{
+            tomarProductoButton.addActionListener(e -> {
                 Producto productoRecogido = expendedor.getProducto();
                 List<Moneda> vueltoMonedas = expendedor.getVueltoEnMonedas();
                 if (productoRecogido != null){
@@ -155,7 +155,7 @@
                 Image imagenOriginal = comprado.getImagen();
 
                 // Escalar imagen del producto a 64x64
-                Image imagenEscalada = imagenOriginal.getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                Image imagenEscalada = imagenOriginal.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
                 JLabel imageLabel = new JLabel(new ImageIcon(imagenEscalada));
                 depositoPanel.add(imageLabel);
             }
@@ -171,10 +171,9 @@
             subLabel.setForeground(Color.white);
             subPanelVuelto.add(subLabel);
 
-
             while (cambio >= 1000) {
                 ImageIcon icono = new ImageIcon("icon/moneda1000.png");
-                Image imagen = icono.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                Image imagen = icono.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 JLabel label = new JLabel(new ImageIcon(imagen));
                 subPanelVuelto.add(label);
                 cambio -= 1000;
@@ -182,7 +181,7 @@
 
             while (cambio >= 500) {
                 ImageIcon icono = new ImageIcon("icon/moneda500.png");
-                Image imagen = icono.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                Image imagen = icono.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 JLabel label = new JLabel(new ImageIcon(imagen));
                 subPanelVuelto.add(label);
                 cambio -= 500;
@@ -190,7 +189,7 @@
 
             while (cambio >= 100) {
                 ImageIcon icono = new ImageIcon("icon/moneda100.png");
-                Image imagen = icono.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                Image imagen = icono.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 JLabel label = new JLabel(new ImageIcon(imagen));
                 subPanelVuelto.add(label);
                 cambio -= 100;
@@ -272,11 +271,8 @@
                     }
                 }
             }
-
             repaint();
         }
-
-
 
         /**
          * Dibuja la interfaz gráfica del expendedor, fondo, productos y precios.
@@ -295,11 +291,11 @@
             }
 
             int xStart = 30;
-            int yStart = 40;
+            int yStart = 45;
             int x = xStart;
             int y = yStart;
 
-            int productosPorFila = 8;
+            int productosPorFila = expendedor.getNumProductos();
             int espacioVertical = getHeight()/5 - 55;
             int espacioPrecio = 20;
 
@@ -317,7 +313,7 @@
                     int precioX = x + (88 - g.getFontMetrics().stringWidth(precio)) / 2;
                     int precioY = y + 88 + espacioPrecio;
                     g.drawString(precio, precioX, precioY);
-                    x += 800/8;
+                    x += 800/expendedor.getNumProductos();
 
                     if ((j+1)%productosPorFila == 0){
                         x = xStart;
