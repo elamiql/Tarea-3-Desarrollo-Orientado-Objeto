@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,6 +40,11 @@ public class PanelComprador extends JPanel {
         this.expendedor = expendedor;
         this.panelPrincipal = panelPrincipal;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        setPreferredSize(new Dimension(250, 600));
+        setMinimumSize(new Dimension(250, 600));
+        setMaximumSize(new Dimension(250, 600));
+
         setBackground(new Color(0xE8E8DE));
         Labels();
         this.add(Box.createVerticalStrut(15));
@@ -289,7 +293,7 @@ public class PanelComprador extends JPanel {
 
             try {
                 BufferedImage monedaImage = ImageIO.read(new File(moneda.getImagePath()));
-                ImageIcon monedaIcon = new ImageIcon(monedaImage.getScaledInstance(64 + 25, 64 + 25, Image.SCALE_SMOOTH));
+                ImageIcon monedaIcon = new ImageIcon(monedaImage.getScaledInstance(81, 81, Image.SCALE_SMOOTH));
                 JLabel monedaLabel = new JLabel(monedaIcon);
                 monedaPanel.add(monedaLabel);
             } catch (IOException e){
@@ -444,7 +448,7 @@ public class PanelComprador extends JPanel {
                 }
 
                 if (totalMonedas < precioEnum.getPrecio()) {
-                    JOptionPane.showMessageDialog(PanelComprador.this, "No te alcanza broder");
+                    JOptionPane.showMessageDialog(PanelComprador.this, "No hay dinero suficiente!");
                     return;
                 }
 
@@ -479,7 +483,7 @@ public class PanelComprador extends JPanel {
                     if (totalMonedas < precio) {
                         JOptionPane.showMessageDialog(
                                 PanelComprador.this,
-                                "No te alcanza broder"
+                                "No hay dinero suficiente"
                         );
                         // reinicia selección
                         productoSeleccionado = "Ninguno";

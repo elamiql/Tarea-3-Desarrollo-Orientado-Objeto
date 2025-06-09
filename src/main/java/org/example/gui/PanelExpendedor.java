@@ -55,14 +55,28 @@
          */
         public PanelExpendedor(Expendedor expendedor){
             this.expendedor = expendedor;
-            this.setPreferredSize(new Dimension(300, 137));
-            this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+            this.setPreferredSize(new Dimension(800, 600));
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             this.setBackground(new Color(0xFFFFFF));
-            this.add(Box.createVerticalStrut(8));
+            this.add(Box.createVerticalStrut(10));
             Label();
-            this.add(Box.createVerticalStrut(650));
+            // MODIFICADO
+            JPanel panelBotonDeposito = new JPanel();
+            panelBotonDeposito.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+            panelBotonDeposito.setOpaque(false);
+            // MODIFICADO
+
+            this.add(Box.createVerticalStrut(600));
             recogerProducto();
             deposito();
+
+            //MODIFICADO
+            panelBotonDeposito.add(tomarProductoButton);
+            panelBotonDeposito.add(depositoPanel);
+            this.add(panelBotonDeposito);
+            //MODIFICADO
+
+
             this.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -103,11 +117,11 @@
          * Crea el botón para recoger el producto y el vuelto, y define su comportamiento.
          */
         private void recogerProducto(){
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
             tomarProductoButton = new JButton("Recoger Producto y Vuelto");
-            tomarProductoButton.setAlignmentX(Component.LEFT_ALIGNMENT);
             tomarProductoButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
-            tomarProductoButton.setBackground(new Color(0xFFFFFF));
+            tomarProductoButton.setBackground(new Color(0xD3D3D3));
             tomarProductoButton.setForeground(Color.black);
             tomarProductoButton.setBorder(BorderFactory.createRaisedBevelBorder());
             tomarProductoButton.setOpaque(true);
@@ -126,8 +140,6 @@
                     JOptionPane.showMessageDialog(null, "No hay producto");
                 }
             });
-            add(tomarProductoButton);
-            add(Box.createVerticalGlue());
         }
 
         /**
@@ -135,11 +147,12 @@
          */
         private void deposito(){
             depositoPanel = new JPanel();
-            depositoPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+            depositoPanel.setLayout(new BoxLayout(depositoPanel, BoxLayout.X_AXIS));
             depositoPanel.setBackground(new Color(0xFFFFFF, true));
-            depositoPanel.setPreferredSize(new Dimension(200, 100));
-
-            this.add(depositoPanel);
+            Dimension size = new Dimension(250, 100); // Ancho x Alto fijo
+            depositoPanel.setPreferredSize(size);
+            depositoPanel.setMaximumSize(size);
+            depositoPanel.setMinimumSize(size);
         }
 
         /**
@@ -154,23 +167,17 @@
                 Producto comprado = expendedor.getDepositoSalida().peek();
                 Image imagenOriginal = comprado.getImagen();
 
-                // Escalar imagen del producto a 64x64
-                Image imagenEscalada = imagenOriginal.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+                Image imagenEscalada = imagenOriginal.getScaledInstance(98, 98, Image.SCALE_SMOOTH);
                 JLabel imageLabel = new JLabel(new ImageIcon(imagenEscalada));
                 depositoPanel.add(imageLabel);
             }
 
             // Crear subpanel para el vuelto
             JPanel subPanelVuelto = new JPanel();
-            subPanelVuelto.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+            subPanelVuelto.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
             subPanelVuelto.setBackground(new Color(0x000F123, true));
 
             int cambio = expendedor.getVuelto();
-            JLabel subLabel = new JLabel("$" + vuelto);
-            subLabel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-            subLabel.setForeground(Color.white);
-            subPanelVuelto.add(subLabel);
-
             while (cambio >= 1000) {
                 ImageIcon icono = new ImageIcon("icon/moneda1000.png");
                 Image imagen = icono.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
@@ -200,6 +207,10 @@
 
             // Refrescar la vista
             depositoPanel.revalidate();
+            System.out.println("DepositoPanel bounds: " + depositoPanel.getBounds());
+            for (Component c : depositoPanel.getComponents()) {
+                System.out.println("Componente (" + c.getClass().getSimpleName() + "): " + c.getBounds());
+            }
             depositoPanel.repaint();
         }
 
@@ -217,9 +228,7 @@
             int xClic = e.getX();
             int yClic = e.getY();
 
-
             if (xClic >= xInicio && xClic <= (xInicio + ancho) && yClic >= yInicio && yClic <= (yInicio + alto)){
-
                 rellenarDeposito(expendedor.getNumProductos());
             }
         }
@@ -290,13 +299,13 @@
                 System.out.println("No hay imagen");
             }
 
-            int xStart = 30;
+            int xStart = 40;
             int yStart = 45;
             int x = xStart;
             int y = yStart;
 
             int productosPorFila = expendedor.getNumProductos();
-            int espacioVertical = getHeight()/5 - 55;
+            int espacioVertical = 765/5 - 55;
             int espacioPrecio = 20;
 
             Font precioFont = new Font("Comic sans", Font.BOLD, 16);
@@ -313,8 +322,7 @@
                     int precioX = x + (88 - g.getFontMetrics().stringWidth(precio)) / 2;
                     int precioY = y + 88 + espacioPrecio;
                     g.drawString(precio, precioX, precioY);
-                    x += 800/expendedor.getNumProductos();
-
+                    x += 904/expendedor.getNumProductos();
                     if ((j+1)%productosPorFila == 0){
                         x = xStart;
                         y += espacioVertical;
